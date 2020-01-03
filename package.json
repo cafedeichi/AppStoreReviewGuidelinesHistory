@@ -1,0 +1,29 @@
+{
+  "name": "AppStoreReviewGuidelinesHistory",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "cheerio": "^1.0.0-rc.3",
+    "fs": "0.0.1-security",
+    "nightmare": "^3.0.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "description": "Checking daily for updates to App Store Review Guidelines",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cafedeichi/AppStoreReviewGuidelinesHistory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cafedeichi/AppStoreReviewGuidelinesHistory/issues"
+  },
+  "homepage": "https://github.com/cafedeichi/AppStoreReviewGuidelinesHistory#readme"
+}
