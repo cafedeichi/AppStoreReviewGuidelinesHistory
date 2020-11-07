@@ -1,7 +1,7 @@
 name: App Store Review Guidelines History
 on:
   schedule:
-    - cron: '0 8,20 * * *'
+    - cron: '0 0,8,16 * * *'
   workflow_dispatch:
 jobs:
   build:
