@@ -4,7 +4,11 @@ const Path = require('path');
 const cheerio = require('cheerio');
 const fs = require('fs');
 
-const nightmare = Nightmare({ show: false });
+const nightmare = Nightmare({
+    show: false,
+    width: 1600,
+    height: 1200
+});
 const url = 'https://developer.apple.com/app-store/review/guidelines';
 const filePath = 'html/guidelines.html';
 
