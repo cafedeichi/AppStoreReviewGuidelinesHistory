@@ -1,36 +1,39 @@
 const core = require('@actions/core');
-const Nightmare = require('nightmare');
+const puppeteer = require('puppeteer');
 const Path = require('path');
-const cheerio = require('cheerio');
 const fs = require('fs');
 
-const nightmare = Nightmare({
-    show: false,
-    width: 1600,
-    height: 1200
-});
+// Puppeteer configuration
+const configuration = {
+    headless: true, // true: headless mode, false: display browser
+    defaultViewport: {
+        width: 1600,
+        height: 1200
+    },
+    args: [
+        '--no-sandbox', // Avoid the impact of security restrictions (for CI environments)    
+        '--disable-setuid-sandbox'
+    ]
+};
+
 const url = 'https://developer.apple.com/app-store/review/guidelines';
 const filePath = 'html/guidelines.html';
 
-nightmare
-    .goto(url)
-    .wait('body')
-    .evaluate(() => document.querySelector('body').innerHTML)
-    .end()
-    .then( response => {
-        write(filePath, getData(response));
-    }).catch(error => {
-        core.setFailed(`Data Fetching failed with error ${error}`);
-    });
-
-function getData(html) {
+(async () => {
     try {
-        const $ = cheerio.load(html);
-        return $(`main`).html().replace(/\t/g, '');
-    } catch(error) {
+        const browser = await puppeteer.launch(configuration);
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: 'networkidle2' });
+        const stream = await page.$eval(
+            'main',
+            el => el.innerHTML.replace(/\t/g, '')
+        );
+        await browser.close();
+        write(filePath, stream);
+    } catch (error) {
         core.setFailed(`Scraping failed with error ${error}`);
     }
-}
+})();
 
 function write(filePath, stream) {
     try {
