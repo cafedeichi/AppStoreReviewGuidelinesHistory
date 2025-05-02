@@ -1,4 +1,4 @@
-name: App Store Review Guidelines History
+name: App Review Guidelines History
 on:
   schedule:
     - cron: '0 0,8,16 * * *'
@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git check-out
-        uses: actions/checkout@master
+        uses: actions/checkout@v4
       - name: Setup node
-        uses: actions/setup-node@master
+        uses: actions/setup-node@v4
         with:
-          node-version: '12.x'
+          node-version: '23.x'
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -48,18 +48,18 @@ jobs:
               git remote add origin https://cafedeichi:$PUSH_TOKEN@github.com/cafedeichi/AppStoreReviewGuidelinesHistory.git
               git push origin HEAD:master
               echo "Updates found."
-              echo ::set-output name=updated::true
+              echo "updated=true" >> $GITHUB_ENV
           else
               echo "Updates not found."
-              echo ::set-output name=updated::false
+              echo "updated=false" >> $GITHUB_ENV
           fi
       - name: Slack notification
-        if: success() && steps.git-check-in.outputs.updated == 'true'
+        if: success() && env.updated == 'true'
         env:
           CHANNEL: "#ios_knowledge"
-          USERNAME: "App Store Review Guidelines History"
+          USERNAME: "App Review Guidelines History"
           ICON_EMOJI: ":apple:"
-          TEXT_TITLE: "Updates found."
+          TEXT_TITLE: "New update to the App Review Guidelines detected."
           TEXT_BODY: "https://github.com/cafedeichi/AppStoreReviewGuidelinesHistory/commits/master"          
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}          
         run: |
