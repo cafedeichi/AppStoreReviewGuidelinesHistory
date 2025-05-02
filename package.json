@@ -13,10 +13,9 @@
     "@actions/core": "^1.9.1",
     "cheerio": "^1.0.0-rc.12",
     "fs": "0.0.1-security",
-    "nightmare": "^3.0.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "puppeteer": "^24.8.0"
   },
-  "devDependencies": {},
   "description": "Checking daily for updates to App Store Review Guidelines",
   "repository": {
     "type": "git",
