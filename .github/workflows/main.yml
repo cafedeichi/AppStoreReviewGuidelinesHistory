@@ -43,7 +43,7 @@ jobs:
           git config user.name "cafedeichi"
           if [[ `git status --porcelain` ]]; then
               git add .
-              git commit -a -m "Updated some contents."
+              git commit -a -m "Update App Review Guidelines HTML"
               git remote rm origin
               git remote add origin https://cafedeichi:$PUSH_TOKEN@github.com/cafedeichi/AppStoreReviewGuidelinesHistory.git
               git push origin HEAD:master
@@ -60,7 +60,7 @@ jobs:
           USERNAME: "App Review Guidelines History"
           ICON_EMOJI: ":apple:"
           TEXT_TITLE: "New update to the App Review Guidelines detected."
-          TEXT_BODY: "https://github.com/cafedeichi/AppStoreReviewGuidelinesHistory/commits/master"          
+          TEXT_BODY: "https://github.com/cafedeichi/AppStoreReviewGuidelinesHistory/commits/master/html/guidelines.html"          
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}          
         run: |
           curl -X POST \
