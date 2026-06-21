@@ -1,7 +1,11 @@
-const core = require('@actions/core');
-const puppeteer = require('puppeteer');
-const Path = require('path');
-const fs = require('fs');
+import * as core from '@actions/core';
+import puppeteer from 'puppeteer';
+import * as Path from 'node:path';
+import * as fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = Path.dirname(__filename);
 
 // Puppeteer configuration
 const configuration = {
